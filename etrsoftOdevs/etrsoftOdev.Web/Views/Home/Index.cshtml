@@ -1,0 +1,88 @@
+﻿@model List<etrsoftOdev.DataAccess.Entities.HesapDTO>
+
+<div class="text-center">
+ 
+    <div class="container">
+
+
+
+        <div class="row" style="width:500px">
+            <p style="font-size:16px">Veritabanı Güncellenme Tarihi: @ViewBag.Tarih</p>
+            </div>
+        
+            <div class="row" style="width:500px">
+            <ul id="myUL">
+        
+             
+              
+            @{
+                foreach (etrsoftOdev.DataAccess.Entities.HesapDTO rec in Model)
+                {
+
+ 
+
+                 
+                          
+                    <li style="width:200px; text-align:left">
+                                @if (rec.Kod1Name.Count() == 3)
+                                {
+                                <span class="caret" style=" border-style: solid; border-width: thin;   display: inline-block;
+      width: 300px;">@rec.Kod1Name | @rec.Borc1</span>
+                            }
+                                <ul class="nested">
+                                @foreach (etrsoftOdev.DataAccess.Entities.HesapDTO rca in Model)
+                                {
+                                    @if (rca.Kod1Name.Count() == 6 && rca.Kod1Name.StartsWith(@rec.Kod1Name))
+                                    {
+                                        <li style="width:270px; text-align:left">
+
+                                            <span class="caret" style=" border-style: solid; border-width: thin;   display: inline-block;
+                                      width: 268px;">@rca.Kod1Name | @rca.Borc1</span>
+                                        <ul class="nested">
+                                            @foreach (etrsoftOdev.DataAccess.Entities.HesapDTO rcaa in Model)
+                                            {
+                                                    @if (rcaa.Kod1Name.Count() > 8 && rcaa.Kod1Name.StartsWith(rca.Kod1Name))
+                                                {
+                                                        <li style=" border-style: solid; border-width: thin;   display: inline-block;
+                                          width: 236px;  text-align:left">@rcaa.Kod1Name | @rcaa.Borc1</li>
+                                                }
+
+                                }
+                                            </ul></li>
+                                    }
+
+                                }
+                                </ul>
+    
+                        
+                                </li>
+                        
+
+                    
+                }
+                    
+                
+            }
+
+            </ul>
+
+        </div>
+
+
+
+        </div>
+
+        <script>
+            var toggler = document.getElementsByClassName("caret");
+            var i;
+
+            for (i = 0; i < toggler.length; i++) {
+                toggler[i].addEventListener("click", function () {
+                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                    this.classList.toggle("caret-down");
+                });
+            }
+        </script>
+      
+ 
+</div>
